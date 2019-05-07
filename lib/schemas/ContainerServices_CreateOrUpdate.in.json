@@ -1,0 +1,346 @@
+{
+    "type": "object",
+    "properties": {
+        "resourceGroupName": {
+            "required": true,
+            "type": "string"
+        },
+        "containerServiceName": {
+            "required": true,
+            "type": "string"
+        },
+        "subscriptionId": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "allOf": [
+                {
+                    "description": "The Resource model definition.",
+                    "properties": {
+                        "id": {
+                            "description": "Resource Id",
+                            "readOnly": true,
+                            "type": "string"
+                        },
+                        "location": {
+                            "description": "Resource location",
+                            "type": "string"
+                        },
+                        "name": {
+                            "description": "Resource name",
+                            "readOnly": true,
+                            "type": "string"
+                        },
+                        "tags": {
+                            "additionalProperties": {
+                                "type": "string"
+                            },
+                            "description": "Resource tags",
+                            "type": "object"
+                        },
+                        "type": {
+                            "description": "Resource type",
+                            "readOnly": true,
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "location"
+                    ],
+                    "x-ms-azure-resource": true,
+                    "type": "object"
+                }
+            ],
+            "description": "Container service.",
+            "properties": {
+                "properties": {
+                    "x-ms-client-flatten": true,
+                    "description": "Properties of the container service.",
+                    "properties": {
+                        "agentPoolProfiles": {
+                            "description": "Properties of the agent pool.",
+                            "items": {
+                                "description": "Profile for the container service agent pool.",
+                                "properties": {
+                                    "count": {
+                                        "default": 1,
+                                        "description": "Number of agents (VMs) to host docker containers. Allowed values must be in the range of 1 to 100 (inclusive). The default value is 1. ",
+                                        "format": "int32",
+                                        "maximum": 100,
+                                        "minimum": 1,
+                                        "type": "integer"
+                                    },
+                                    "dnsPrefix": {
+                                        "description": "DNS prefix to be used to create the FQDN for the agent pool.",
+                                        "type": "string"
+                                    },
+                                    "fqdn": {
+                                        "description": "FQDN for the agent pool.",
+                                        "readOnly": true,
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "description": "Unique name of the agent pool profile in the context of the subscription and resource group.",
+                                        "type": "string"
+                                    },
+                                    "vmSize": {
+                                        "description": "Size of agent VMs.",
+                                        "enum": [
+                                            "Standard_A0",
+                                            "Standard_A1",
+                                            "Standard_A2",
+                                            "Standard_A3",
+                                            "Standard_A4",
+                                            "Standard_A5",
+                                            "Standard_A6",
+                                            "Standard_A7",
+                                            "Standard_A8",
+                                            "Standard_A9",
+                                            "Standard_A10",
+                                            "Standard_A11",
+                                            "Standard_D1",
+                                            "Standard_D2",
+                                            "Standard_D3",
+                                            "Standard_D4",
+                                            "Standard_D11",
+                                            "Standard_D12",
+                                            "Standard_D13",
+                                            "Standard_D14",
+                                            "Standard_D1_v2",
+                                            "Standard_D2_v2",
+                                            "Standard_D3_v2",
+                                            "Standard_D4_v2",
+                                            "Standard_D5_v2",
+                                            "Standard_D11_v2",
+                                            "Standard_D12_v2",
+                                            "Standard_D13_v2",
+                                            "Standard_D14_v2",
+                                            "Standard_G1",
+                                            "Standard_G2",
+                                            "Standard_G3",
+                                            "Standard_G4",
+                                            "Standard_G5",
+                                            "Standard_DS1",
+                                            "Standard_DS2",
+                                            "Standard_DS3",
+                                            "Standard_DS4",
+                                            "Standard_DS11",
+                                            "Standard_DS12",
+                                            "Standard_DS13",
+                                            "Standard_DS14",
+                                            "Standard_GS1",
+                                            "Standard_GS2",
+                                            "Standard_GS3",
+                                            "Standard_GS4",
+                                            "Standard_GS5"
+                                        ],
+                                        "type": "string",
+                                        "x-ms-enum": {
+                                            "modelAsString": true,
+                                            "name": "ContainerServiceVMSizeTypes"
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "name",
+                                    "dnsPrefix",
+                                    "count",
+                                    "vmSize"
+                                ],
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
+                        "customProfile": {
+                            "description": "Properties for custom clusters.",
+                            "properties": {
+                                "orchestrator": {
+                                    "description": "The name of the custom orchestrator to use.",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "orchestrator"
+                            ],
+                            "type": "object"
+                        },
+                        "diagnosticsProfile": {
+                            "description": "Properties of the diagnostic agent.",
+                            "properties": {
+                                "vmDiagnostics": {
+                                    "description": "Profile for the container service VM diagnostic agent.",
+                                    "properties": {
+                                        "enabled": {
+                                            "description": "Whether the VM diagnostic agent is provisioned on the VM.",
+                                            "type": "boolean"
+                                        },
+                                        "storageUri": {
+                                            "description": "The URI of the storage account where diagnostics are stored.",
+                                            "readOnly": true,
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "enabled"
+                                    ],
+                                    "type": "object"
+                                }
+                            },
+                            "required": [
+                                "vmDiagnostics"
+                            ],
+                            "type": "object"
+                        },
+                        "linuxProfile": {
+                            "description": "Properties of Linux VMs.",
+                            "properties": {
+                                "adminUsername": {
+                                    "description": "The administrator username to use for Linux VMs.",
+                                    "pattern": "^[a-z][a-z0-9_-]*$",
+                                    "type": "string"
+                                },
+                                "ssh": {
+                                    "description": "The ssh key configuration for Linux VMs.",
+                                    "properties": {
+                                        "publicKeys": {
+                                            "description": "the list of SSH public keys used to authenticate with Linux-based VMs.",
+                                            "items": {
+                                                "description": "Contains information about SSH certificate public key data.",
+                                                "properties": {
+                                                    "keyData": {
+                                                        "description": "Certificate public key used to authenticate with VMs through SSH. The certificate must be in PEM format with or without headers.",
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "keyData"
+                                                ],
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        }
+                                    },
+                                    "required": [
+                                        "publicKeys"
+                                    ],
+                                    "type": "object"
+                                }
+                            },
+                            "required": [
+                                "adminUsername",
+                                "ssh"
+                            ],
+                            "type": "object"
+                        },
+                        "masterProfile": {
+                            "description": "Properties of master agents.",
+                            "properties": {
+                                "count": {
+                                    "default": 1,
+                                    "description": "Number of masters (VMs) in the container service cluster. Allowed values are 1, 3, and 5. The default value is 1.",
+                                    "enum": [
+                                        1,
+                                        3,
+                                        5
+                                    ],
+                                    "format": "int32",
+                                    "type": "integer"
+                                },
+                                "dnsPrefix": {
+                                    "description": "DNS prefix to be used to create the FQDN for master.",
+                                    "type": "string"
+                                },
+                                "fqdn": {
+                                    "description": "FQDN for the master.",
+                                    "readOnly": true,
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "dnsPrefix"
+                            ],
+                            "type": "object"
+                        },
+                        "orchestratorProfile": {
+                            "description": "Properties of the orchestrator.",
+                            "properties": {
+                                "orchestratorType": {
+                                    "description": "The orchestrator to use to manage container service cluster resources. Valid values are Swarm, DCOS, and Custom.",
+                                    "enum": [
+                                        "Swarm",
+                                        "DCOS",
+                                        "Custom",
+                                        "Kubernetes"
+                                    ],
+                                    "type": "string",
+                                    "x-ms-enum": {
+                                        "modelAsString": false,
+                                        "name": "ContainerServiceOrchestratorTypes"
+                                    }
+                                }
+                            },
+                            "required": [
+                                "orchestratorType"
+                            ],
+                            "type": "object"
+                        },
+                        "provisioningState": {
+                            "description": "the current deployment or provisioning state, which only appears in the response.",
+                            "readOnly": true,
+                            "type": "string"
+                        },
+                        "servicePrincipalProfile": {
+                            "description": "Properties for cluster service principals.",
+                            "properties": {
+                                "clientId": {
+                                    "description": "The ID for the service principal.",
+                                    "type": "string"
+                                },
+                                "secret": {
+                                    "description": "The secret password associated with the service principal.",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "clientId",
+                                "secret"
+                            ],
+                            "type": "object"
+                        },
+                        "windowsProfile": {
+                            "description": "Properties of Windows VMs.",
+                            "properties": {
+                                "adminPassword": {
+                                    "description": "The administrator password to use for Windows VMs.",
+                                    "pattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%\\^&\\*\\(\\)])[a-zA-Z\\d!@#$%\\^&\\*\\(\\)]{12,123}$",
+                                    "type": "string"
+                                },
+                                "adminUsername": {
+                                    "description": "The administrator username to use for Windows VMs.",
+                                    "pattern": "^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "adminUsername",
+                                "adminPassword"
+                            ],
+                            "type": "object"
+                        }
+                    },
+                    "required": [
+                        "masterProfile",
+                        "agentPoolProfiles",
+                        "linuxProfile"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "api_version": {
+            "required": true,
+            "type": "string"
+        }
+    }
+}
